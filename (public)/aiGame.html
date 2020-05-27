@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #divLetter {
+            font-weight: bold;
+            font-size: 25px;
+            color: teal;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html">Početna</a>
+    <h3>Igraj protiv kompjutera</h3>
+    <button type="button" class="btn btn-block" id="buttonStartGame">Započni igru</button>
+    <div id="divLetter"></div>
+    <div id="divTimer">Preostalo vreme: </div>
+    <form id= "formGame">
+        <div class="formCategory">
+            <label for="drzava">Država</label>
+            <input type="text" class="inputPlayer" id="drzava">
+            <input type="text" class="inputGame" id="inputComputerDrzava" disabled>
+        </div>
+        <div class="formCategory">
+            <label for="grad">Grad</label>
+            <input type="text" class="inputPlayer" id="grad">
+            <input type="text" class="inputGame" id="inputComputerGrad" disabled>
+        </div>
+        <div class="formCategory">
+            <label for="reka">Reka</label>
+            <input type="text" class="inputPlayer" id="reka">
+            <input type="text" class="inputGame" id="inputComputerrReka" disabled>
+        </div>
+        <div class="formCategory">
+            <label for="planina">Planina</label>
+            <input type="text" class="inputPlayer" id="planina">
+            <input type="text" class="inputGame" id="inputComputerPlanina" disabled>
+        </div>
+        <div class="formCategory">
+            <label for="zivotinja">Životinja</label>
+            <input type="text" class="inputPlayer" id="zivotinja">
+            <input type="text" class="inputGame" id="inputComputerZivotinja" disabled>
+        </div>
+        <div class="formCategory">
+            <label for="biljka">Grad</label>
+            <input type="text" class="inputPlayer" id="biljka">
+            <input type="text" class="inputGame" id="inputComputerBiljka" disabled>
+        </div>
+        <div class="formCategory">
+            <label for="predmet">Predmet</label>
+            <input type="text" class="inputPlayer" id="predmet">
+            <input type="text" class="inputGame" id="inputComputerPredmet" disabled>
+        </div>
+
+        <button type="submit" class="btn btn-block" id="buttonSubmitAnswers">Gotovo</button>
+        <div id = "divNotification"></div>
+    </form>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyA0_V4DJVe5g3wj8x-jliNCNX-_zpnkAts",
+    authDomain: "geochallenge-f91f5.firebaseapp.com",
+    databaseURL: "https://geochallenge-f91f5.firebaseio.com",
+    projectId: "geochallenge-f91f5",
+    storageBucket: "geochallenge-f91f5.appspot.com",
+    messagingSenderId: "434989239785",
+    appId: "1:434989239785:web:72342e87e21dc102aecf78"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  let db = firebase.firestore();
+</script>
+<script src="aiGame.js" type="module"></script>
+<script>
+if (!localStorage.username) {
+    document.body.innerHTML = "Ne možete pristupiti igri bez korisničkog imena!";
+    setTimeout(()=>(window.location.href = "index.html"), 3000)
+    }
+</script>
+
+ 
+</body>
+</html>

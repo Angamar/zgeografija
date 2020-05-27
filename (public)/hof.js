@@ -3,7 +3,6 @@ import {Geo} from "./GeoClass.js";
 // Get DOM elements
 const formUsername = document.getElementById('formUsername');
 const divNotification = document.getElementById('divNotification');
-const divHof = document.getElementById('divHof');
 
 //Import GeoClass class
 
@@ -32,7 +31,4 @@ formUsername.addEventListener('submit', e => {
 
     }
 });
-
-
-
 

@@ -1,8 +1,12 @@
-export class Geo {
+export class Game {
+
+  
 
     constructor(korisnik) {
-        this.korisnik = korisnik;
+        this._korisnik = korisnik;
         this.zgeografija = db.collection('zgeografija');
+        this._categories= ['Država', 'Grad', 'Reka', 'Planina', 'Životinja', 'Biljka','Predmet'];
+        
     }
 
     get korisnik() {
@@ -85,58 +89,66 @@ export class Geo {
 
     }
 
-    //taking all users
-    getUsersAndScore(){
-      // [{"name": user, "score": points}]
-        this.zgeografija.get()
-        .then(snapshot => {
-            const names = [];
-            snapshot.docs.forEach(doc => {
-                let name = doc.data().korisnik;
-                names.push(name);
-            })    
-            return names;
-        })
-        .then(names => {
-            const scoreboard = [];
-            names.forEach(name => {
-                const playerIndex = scoreboard.findIndex((obj) => obj.name  === name);
-                if (playerIndex < 0){
-                    scoreboard.push({'name':name, 'score':1})
-                } else {
-                    scoreboard[playerIndex].score += 1;
-                }
-            })
-            //sorts the scoreboard in descending order
-            let sortedScoreboard = scoreboard.sort((a, b) => b.score - a.score);
-            console.log(sortedScoreboard);
-            return sortedScoreboard;
-        })
-        .catch(error => console.log(error));
+
+    setTimer = seconds => {
+        let s = seconds;
+        let countdown = ()=> {
+            if (s>0){
+                divTimer.innerText = `Preostalo vreme: ${s}`; 
+                s--;
+            }else{
+                s='Vreme je isteklo!';
+                divTimer.style.color = "red";
+                divTimer.innerText = s;
+                clearInterval(timer);
+            }
+        }
+        let timer = setInterval(countdown, 1000);
+
+        setTimeout(()=>{buttonSubmitAnswers.click()}, s*1000+1000);
+        
     }
 
+    randomLetter = () =>{
+        let LettersArray = [ 
+            `A`, `B`, `C`, `Č`, `Ć`, `D`, `Dž`, `Đ`, `E`, `F`, 
+            `G`, `H`, `I`, `J`, `K`, `L`, `Lj`, `M`, `N`, `Nj`, 
+            `O`, `P`, `R`, `S`, `Š`, `T`, `U`, `V`, `Z`, `Ž` ]
+        let randomIndex = Math.floor(Math.random() * 30);
+        let randomLetter = LettersArray[randomIndex];
+        return randomLetter;
+    }
 
-/*       topContributors(){
-    let score = {};
-    let sorted = [];
-        this.zgeografija.get()
-        .then(snapshot => {
-            snapshot.docs.forEach(doc => {
-                let user = doc.data().korisnik;
-                    score[user] = (score[user] + 1) || 1; 
+    checkPlayerAnswers(randomLetter, playerAnswers, callback){
+    // playerAnswers = [{kategorija: Država, odgovor: Gruzija, tacno: true, poeni: 15}]
+    let letter = randomLetter;
+    let isCorrect = false;
+    let checkedAnswers = playerAnswers;
+        for ( let answer in checkedAnswers){
+            let kategorija = answer.kategorija;
+            let pojam = answer.odgovor;
+          this.zgeografija
+            .where('kategorija', '==', kategorija)
+            .where('pojam', '==', pojam)
+            .where('pocetnoSlovo', '==', letter)
+            .get()
+            .then(snapshot =>{
+                snapshot.docs.forEach( doc => {
+                    //if found in database, term is correct
+                    if(doc.data()) {
+                        isCorrect = true;
+                    };
+                callback(isCorrect);
+                })
+            .catch( error => {
+                console.log(error);
+            });
             })
-            for (let name in score){
-            sorted.push([name, score[name]]);
-            }
-            let topContributors = sorted.sort((a,b) => {
-                return b[1] - a[1];
-            })
-           console.log(topContributors);
-           return topContributors;
-        }) 
-        .catch(error => console.log(error));
-    }*/
+        console.log('Random letter is ' + letter);
+        console.log(checkedAnswers);
+        }
 
 
+    }
 
 }
