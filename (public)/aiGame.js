@@ -3,9 +3,10 @@
 const divLetter = document.getElementById('divLetter');
 const divTimer = document.getElementById('divTimer');
 const buttonStartGame = document.getElementById('buttonStartGame');
-//DOM player input
+//DOM input
 const labelCategory = document.querySelectorAll('label');
 const inputPlayer = document.querySelectorAll('.inputPlayer');
+const inputAi = document.querySelectorAll('.inputAi');
 //DOM submit answers
 const buttonSubmitAnswers = document.getElementById('buttonSubmitAnswers')
 //Categories (from Labels)
@@ -15,46 +16,46 @@ labelCategory.forEach(label => labelCategoryArray.push(label.innerText));
 
 import {Game} from "./GameClass.js";
 let aiGame = new Game(localStorage.username);
+
 let letter;
+let timer;
 buttonStartGame.addEventListener('click', e=>{
     e.preventDefault();
-    aiGame.setTimer(3);
+    //stating timer and getting a random letter
+    timer = aiGame.setTimer();
     letter = aiGame.randomLetter();
     divLetter.innerText = letter;
-    buttonStartGame.setAttribute('disabled',true);
-    console.log(letter);
-    
 
+    //generating random computer answers for each category
+
+
+    aiGame.categories.forEach(category=>{
+        aiGame.generateAiAnswer(category)
+    })
+    console.log(aiGame.aiAnswers)
+
+
+    //enabling and disabling buttons and inputs
+    buttonStartGame.setAttribute('disabled',true);
+    inputPlayer.forEach((input) =>{input.removeAttribute("disabled")})
+    buttonSubmitAnswers.removeAttribute("disabled");
 })
 
 
-console.log(labelCategoryArray);
+
+
 
 //Array of player answers {category - answer - correct- points}
-let playerAnswers = [];
+
 buttonSubmitAnswers.addEventListener('click',e=>{
-
+    buttonSubmitAnswers.setAttribute('disabled',true);  
+    aiGame.time = 0;
     e.preventDefault();
-    console.log(`The button was pressed, the answers are submitting!`);
-    let i = 0;
-    inputPlayer.forEach(input =>{
-        let kategorija = labelCategoryArray[i];
-        playerAnswers.push({'kategorija': kategorija, 'odgovor': input.value, 'tacno':'', 'poeni':0});
-        i++;
-    })
-    aiGame.checkPlayerAnswers(letter,playerAnswers,(isCorrect)=>{
-        playerAnswers.forEach(answer=>{
-            answer.tacno = isCorrect;
-        })
-        console.log(playerAnswers)
-
-    })
-    buttonSubmitAnswers.setAttribute('disabled',true);
-
-         
+    console.log(`The button was pressed, the answers are submitting and checking!`);
+    aiGame.getPlayerAnswers(inputPlayer).checkPlayerAnswers()
+    inputAi.forEach((input, i)=>{
+        input.value = aiGame.aiAnswers[i].odgovor;
+    })  
+    setTimeout(()=>{aiGame.compareAnswers()}, 2000)
 })
-
-console.log(playerAnswers)
-
-
 

@@ -15,47 +15,49 @@
 <body>
     <a href="index.html">Početna</a>
     <h3>Igraj protiv kompjutera</h3>
+    <p>Slovo je trenutno hardcoded, pošto baza ima pojmove samo za slovo A.</p>
+    <p>Rezultati igre se za sada ispisuju samo u konzoli.</p>
     <button type="button" class="btn btn-block" id="buttonStartGame">Započni igru</button>
     <div id="divLetter"></div>
     <div id="divTimer">Preostalo vreme: </div>
     <form id= "formGame">
         <div class="formCategory">
             <label for="drzava">Država</label>
-            <input type="text" class="inputPlayer" id="drzava">
-            <input type="text" class="inputGame" id="inputComputerDrzava" disabled>
+            <input type="text" class="inputPlayer" id="drzava" disabled>
+            <input type="text" class="inputAi" id="inputComputerDrzava" disabled>
         </div>
         <div class="formCategory">
             <label for="grad">Grad</label>
-            <input type="text" class="inputPlayer" id="grad">
-            <input type="text" class="inputGame" id="inputComputerGrad" disabled>
+            <input type="text" class="inputPlayer" id="grad" disabled>
+            <input type="text" class="inputAi" id="inputComputerGrad" disabled>
         </div>
         <div class="formCategory">
             <label for="reka">Reka</label>
-            <input type="text" class="inputPlayer" id="reka">
-            <input type="text" class="inputGame" id="inputComputerrReka" disabled>
+            <input type="text" class="inputPlayer" id="reka" disabled>
+            <input type="text" class="inputAi" id="inputComputerrReka" disabled>
         </div>
         <div class="formCategory">
             <label for="planina">Planina</label>
-            <input type="text" class="inputPlayer" id="planina">
-            <input type="text" class="inputGame" id="inputComputerPlanina" disabled>
+            <input type="text" class="inputPlayer" id="planina" disabled>
+            <input type="text" class="inputAi" id="inputComputerPlanina" disabled>
         </div>
         <div class="formCategory">
             <label for="zivotinja">Životinja</label>
-            <input type="text" class="inputPlayer" id="zivotinja">
-            <input type="text" class="inputGame" id="inputComputerZivotinja" disabled>
+            <input type="text" class="inputPlayer" id="zivotinja" disabled>
+            <input type="text" class="inputAi" id="inputComputerZivotinja" disabled>
         </div>
         <div class="formCategory">
-            <label for="biljka">Grad</label>
-            <input type="text" class="inputPlayer" id="biljka">
-            <input type="text" class="inputGame" id="inputComputerBiljka" disabled>
+            <label for="biljka">Biljka</label>
+            <input type="text" class="inputPlayer" id="biljka" disabled>
+            <input type="text" class="inputAi" id="inputComputerBiljka" disabled>
         </div>
         <div class="formCategory">
             <label for="predmet">Predmet</label>
-            <input type="text" class="inputPlayer" id="predmet">
-            <input type="text" class="inputGame" id="inputComputerPredmet" disabled>
+            <input type="text" class="inputPlayer" id="predmet" disabled>
+            <input type="text" class="inputAi" id="inputComputerPredmet" disabled>
         </div>
 
-        <button type="submit" class="btn btn-block" id="buttonSubmitAnswers">Gotovo</button>
+        <button type="submit" class="btn btn-block" id="buttonSubmitAnswers" disabled>Gotovo</button>
         <div id = "divNotification"></div>
     </form>
 
@@ -83,10 +85,10 @@
 </script>
 <script src="aiGame.js" type="module"></script>
 <script>
-if (!localStorage.username) {
-    document.body.innerHTML = "Ne možete pristupiti igri bez korisničkog imena!";
-    setTimeout(()=>(window.location.href = "index.html"), 3000)
-    }
+    if (!localStorage.username) {
+        document.body.innerHTML = "Ne možete igrati igru bez korisničkog imena!";
+        setTimeout(()=>(window.location.href = "index.html"), 3000)
+        }
 </script>
 
  
