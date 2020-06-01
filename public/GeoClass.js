@@ -84,7 +84,7 @@ export class Geo {
             });
 
     }
-
+/*
     //taking all users
     getUsersAndScore(){
       // [{"name": user, "score": points}]
@@ -116,7 +116,7 @@ export class Geo {
     }
 
 
-/*       topContributors(){
+    topContributors(){
     let score = {};
     let sorted = [];
         this.zgeografija.get()

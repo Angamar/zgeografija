@@ -2,11 +2,14 @@
 //DOM ui
 const divLetter = document.getElementById('divLetter');
 const divTimer = document.getElementById('divTimer');
+const divWinner = document.getElementById('divWinner');
 const buttonStartGame = document.getElementById('buttonStartGame');
 //DOM input
 const labelCategory = document.querySelectorAll('label');
 const inputPlayer = document.querySelectorAll('.inputPlayer');
 const inputAi = document.querySelectorAll('.inputAi');
+const divPlayerScore = document.querySelectorAll('.divPlayerScore')
+const divAiScore = document.querySelectorAll('.divAiScore')
 //DOM submit answers
 const buttonSubmitAnswers = document.getElementById('buttonSubmitAnswers')
 //Categories (from Labels)
@@ -53,9 +56,20 @@ buttonSubmitAnswers.addEventListener('click',e=>{
     e.preventDefault();
     console.log(`The button was pressed, the answers are submitting and checking!`);
     aiGame.getPlayerAnswers(inputPlayer).checkPlayerAnswers()
+    inputPlayer.forEach((input) =>{input.setAttribute('disabled',true)})
     inputAi.forEach((input, i)=>{
         input.value = aiGame.aiAnswers[i].odgovor;
     })  
-    setTimeout(()=>{aiGame.compareAnswers()}, 2000)
+    setTimeout(()=>{
+        aiGame.compareAnswers()
+        for (let i=0; i<7; i++){
+            divPlayerScore[i].innerText = aiGame.playerAnswers[i].poeni;
+            divAiScore[i].innerText = aiGame.aiAnswers[i].poeni;
+        }
+        divWinner.innerText += `${aiGame.declareWinner()}!`;
+        divWinner.setAttribute('style','display:block')}
+    , 2000)
+
+
 })
 

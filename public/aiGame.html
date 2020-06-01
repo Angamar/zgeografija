@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <title>Document</title>
+
+</head>
+<body>
+<div class="container" style="background:rgb(179, 214, 214)">
+    <a href="index.html">Početna</a>
+    <div class="jumbotron jumbotron-fluid bg-info text-white text-center">
+  
+    <h1>Igraj protiv kompjutera</h1>
+
+    </div>
+
+    <button type="button" class="btn" id="buttonStartGame">Započni igru</button>
+    <div id="divWinner" style="display:none">Pobednik je </div>
+    <div id="divLetter"></div>
+    <div id="divTimer">Preostalo vreme: </div>
+
+    <form id= "formGame">
+        <div class="row formCategory">
+            <label for="drzava" class="col-sm-1">Država</label>
+            <input type="text" class="col-sm-4 inputPlayer" id="drzava" disabled>
+            <div class="col-sm-1 text-center divPlayerScore" id="drzava">0</div>
+            <div class="col-sm-1 text-center divAiScore" id="drzava">0</div>
+            <input type="text" class="col-sm-4 inputAi" id="inputComputerDrzava" disabled>
+        </div>
+        <div class="row formCategory">
+            <label for="drzava" class="col-sm-1">Grad</label>
+            <input type="text" class="col-sm-4 inputPlayer" id="grad" disabled>
+            <div class="col-sm-1 text-center divPlayerScore" id="grad">0</div>
+            <div class="col-sm-1 text-center divAiScore" id="grad">0</div>
+            <input type="text" class="col-sm-4 inputAi" id="inputComputerGrad" disabled>
+        </div>
+        <div class="row formCategory">
+            <label for="drzava" class="col-sm-1">Reka</label>
+            <input type="text" class="col-sm-4 inputPlayer" id="reka" disabled>
+            <div class="col-sm-1 text-center divPlayerScore" id="reka">0</div>
+            <div class="col-sm-1 text-center divAiScore" id="reka">0</div>
+            <input type="text" class="col-sm-4 inputAi" id="inputComputerReka" disabled>
+        </div>
+        <div class="row formCategory">
+            <label for="drzava" class="col-sm-1">Planina</label>
+            <input type="text" class="col-sm-4 inputPlayer" id="planina" disabled>
+            <div class="col-sm-1 text-center divPlayerScore" id="planina">0</div>
+            <div class="col-sm-1 text-center divAiScore" id="planina">0</div>
+            <input type="text" class="col-sm-4 inputAi" id="inputComputerPlanina" disabled>
+        </div>
+        <div class="row formCategory">
+        <label for="drzava" class="col-sm-1">Životinja</label>
+        <input type="text" class="col-sm-4 inputPlayer" id="zivotinja" disabled>
+        <div class="col-sm-1 text-center divPlayerScore" id="zivotinja">0</div>
+        <div class="col-sm-1 text-center divAiScore" id="zivotinja">0</div>
+        <input type="text" class="col-sm-4 inputAi" id="inputComputerZivotinja" disabled>
+        </div>
+        <div class="row formCategory">
+            <label for="drzava" class="col-sm-1">Biljka</label>
+            <input type="text" class="col-sm-4 inputPlayer" id="biljka" disabled>
+            <div class="col-sm-1 text-center divPlayerScore" id="biljka">0</div>
+            <div class="col-sm-1 text-center divAiScore" id="biljka">0</div>
+            <input type="text" class="col-sm-4 inputAi" id="inputComputerBiljka" disabled>
+        </div>
+        <div class="row formCategory">
+            <label for="drzava" class="col-sm-1">Predmet</label>
+            <input type="text" class="col-sm-4 inputPlayer" id="predmet" disabled>
+            <div class="col-sm-1 text-center divPlayerScore" id="predmet">0</div>
+            <div class="col-sm-1 text-center divAiScore" id="predmet">0</div>
+            <input type="text" class="col-sm-4 inputAi" id="inputComputerPredmet" disabled>
+        </div>
+
+        <button type="submit" class="btn btn-block" id="buttonSubmitAnswers" disabled>Gotovo</button>
+        <div id = "divNotification"></div>
+    </form>
+</div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyA0_V4DJVe5g3wj8x-jliNCNX-_zpnkAts",
+    authDomain: "geochallenge-f91f5.firebaseapp.com",
+    databaseURL: "https://geochallenge-f91f5.firebaseio.com",
+    projectId: "geochallenge-f91f5",
+    storageBucket: "geochallenge-f91f5.appspot.com",
+    messagingSenderId: "434989239785",
+    appId: "1:434989239785:web:72342e87e21dc102aecf78"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  let db = firebase.firestore();
+</script>
+<script src="aiGame.js" type="module"></script>
+<script>
+    if (!localStorage.username) {
+        document.body.innerHTML = "Ne možete igrati igru bez korisničkog imena!";
+        setTimeout(()=>(window.location.href = "index.html"), 3000)
+        }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
